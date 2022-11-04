@@ -30,11 +30,17 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
         }
 }
 
-# Install DockerCommands AutoComplete
+## Install DockerCommands AutoComplete
 if (!(Get-Module -ListAvailable -Name DockerCompletion)) {
     Install-Module DockerCompletion -Scope AllUsers
 }
 Import-Module DockerCompletion
+
+# Azure CmdLets
+if (!(Get-Module -ListAvailable -Name Az)) {
+    Install-Module Az -Scope AllUsers
+}
+Import-Module Az
 
 # 'choco install kubernetes-cli' or 'choco upgrade kubernetes-cli'
 kubectl completion powershell | Out-String | Invoke-Expression
