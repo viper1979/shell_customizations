@@ -53,7 +53,7 @@
             "background": "#2b2b2b",
             "foreground": "#65aff4",
             "properties": {
-              "folder_separator_icon": "/",
+              "folder_separator_icon": "\\",
               "style": "agnoster_short",
               "max_depth": 3
             },
