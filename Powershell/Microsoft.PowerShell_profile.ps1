@@ -62,8 +62,12 @@ function admin
        Start-Process "$psHome\pwsh.exe" -Verb runAs
     }
 }
-
 Set-Alias -Name sudo -Value admin
+
+function getPublicIp {
+    (Invoke-WebRequest -uri "http://ifconfig.me/ip").Content
+}
+Set-Alias -Name publicip -Value getPublicIp
 
 # oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/amro.omp.json" | Invoke-Expression
 oh-my-posh init pwsh --config "C:\Users\Viper\Documents\PowerShell\viper_custom_shell.omp.json" | Invoke-Expression
