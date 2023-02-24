@@ -1,3 +1,6 @@
+using namespace System.Management.Automation
+using namespace System.Management.Automation.Language
+
 # Install Terminal Icons
 if (!(Get-Module -ListAvailable -Name Terminal-Icons)) {
     Install-Module -Name Terminal-Icons -Repository PSGallery
@@ -19,6 +22,46 @@ Set-PSReadLineOption -PredictionViewStyle InlineView
 Set-PSReadLineOption -EditMode Windows
 
 Set-PSReadLineKeyHandler -Chord "Shift+RightArrow" -Function ForwardWord
+
+# F1 for help on the command line - naturally
+# Stolen from: https://gist.github.com/shanselman/19dd54a09418df682d9ca945dec3b2e6#file-microsoft-powershell_profile-ps1-L536
+Set-PSReadLineKeyHandler -Key F1 `
+                         -BriefDescription CommandHelp `
+                         -LongDescription "Open the help window for the current command" `
+                         -ScriptBlock {
+    param($key, $arg)
+
+    $ast = $null
+    $tokens = $null
+    $errors = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$ast, [ref]$tokens, [ref]$errors, [ref]$cursor)
+
+    $commandAst = $ast.FindAll( {
+        $node = $args[0]
+        $node -is [CommandAst] -and
+            $node.Extent.StartOffset -le $cursor -and
+            $node.Extent.EndOffset -ge $cursor
+        }, $true) | Select-Object -Last 1
+
+    if ($commandAst -ne $null)
+    {
+        $commandName = $commandAst.GetCommandName()
+        if ($commandName -ne $null)
+        {
+            $command = $ExecutionContext.InvokeCommand.GetCommand($commandName, 'All')
+            if ($command -is [AliasInfo])
+            {
+                $commandName = $command.ResolvedCommandName
+            }
+
+            if ($commandName -ne $null)
+            {
+                Get-Help $commandName -ShowWindow
+            }
+        }
+    }
+}
 
 ### COMMAND COMPLETIONS
 
