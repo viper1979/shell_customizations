@@ -10,12 +10,12 @@ Import-Module -Name Terminal-Icons
 
 # Install PsReadLine AutoComplete
 if (!(Get-Module -ListAvailable -Name PSReadLine)) {
-    Install-Module PSReadLine -AllowPrerelease -Force
+    Install-Module PSReadLine -Force # -AllowPrerelease
 }
 
 # Add auto complete (requires PSReadline 2.2.0-beta1+ prerelease)
 # Don't have it? Install using this command:
-# Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck
+# Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck # -AllowPrerelease
 Set-PSReadLineOption -PredictionSource History
 # Use 'F2' to switch between InlineView and ListView
 Set-PSReadLineOption -PredictionViewStyle InlineView
@@ -80,15 +80,15 @@ if (!(Get-Module -ListAvailable -Name DockerCompletion)) {
 Import-Module DockerCompletion
 
 # Azure CmdLets
-if (!(Get-Module -ListAvailable -Name Az)) {
-    Install-Module Az -Scope AllUsers
-}
-Import-Module Az
+# if (!(Get-Module -ListAvailable -Name Az)) {
+#     Install-Module Az -Scope AllUsers
+# }
+# Import-Module Az
 
 # 'choco install kubernetes-cli' or 'choco upgrade kubernetes-cli'
-kubectl completion powershell | Out-String | Invoke-Expression
+### kubectl completion powershell | Out-String | Invoke-Expression
 # 'choco install kubernetes-helm' or 'choco upgrade kubernetes-helm'
-helm completion powershell | Out-String | Invoke-Expression
+### helm completion powershell | Out-String | Invoke-Expression
 
 # Simple function to start a new elevated process. If arguments are supplied then 
 # a single command is started with admin rights; if not then a new admin instance
@@ -114,3 +114,13 @@ Set-Alias -Name publicip -Value getPublicIp
 
 # oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/amro.omp.json" | Invoke-Expression
 oh-my-posh init pwsh --config "C:\Users\Viper\Documents\PowerShell\viper_custom_shell.omp.json" | Invoke-Expression
+
+# Import the Chocolatey Profile that contains the necessary code to enable
+# tab-completions to function for `choco`.
+# Be aware that if you are missing these lines from your profile, tab completion
+# for `choco` will not function.
+# See https://ch0.co/tab-completion for details.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
