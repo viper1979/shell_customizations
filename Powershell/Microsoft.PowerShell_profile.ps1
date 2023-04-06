@@ -95,15 +95,18 @@ Import-Module DockerCompletion
 # of PowerShell is started.
 function admin
 {
-    if ($args.Count -gt 0)
-    {   
-       $argList = "& '" + $args + "'"
-       Start-Process "$psHome\pwsh.exe" -Verb runAs -ArgumentList $argList
-    }
-    else
-    {
-       Start-Process "$psHome\pwsh.exe" -Verb runAs
-    }
+    # https://stackoverflow.com/a/63163528/97017
+    Start-Process -Verb runAs cmd.exe '/c start wt.exe'
+
+    # if ($args.Count -gt 0)
+    # {   
+    #    $argList = "& '" + $args + "'"
+    #    Start-Process "$psHome\pwsh.exe" -Verb runAs -ArgumentList $argList
+    # }
+    # else
+    # {
+    #    Start-Process "$psHome\pwsh.exe" -Verb runAs
+    # }
 }
 Set-Alias -Name sudo -Value admin
 
