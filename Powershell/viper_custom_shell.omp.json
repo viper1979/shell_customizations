@@ -84,6 +84,15 @@
             "trailing_diamond": "\ue0b0",
             "style": "diamond",
             "type": "git"
+          },
+          {
+            "type": "upgrade",
+            "style": "diamond",
+            "foreground": "#111111",
+            "background": "#FFD664",
+            "leading_diamond": "\uE0BA",
+            "trailing_diamond": "\ue0b0",
+            "template": "\uf1da"
           }
         ],
         "type": "prompt"
