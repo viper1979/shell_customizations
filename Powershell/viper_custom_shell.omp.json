@@ -90,7 +90,7 @@
             "style": "diamond",
             "foreground": "#111111",
             "background": "#FFD664",
-            "leading_diamond": "\uE0BA",
+            "leading_diamond": "<transparent,background>\uE0B0</>",
             "trailing_diamond": "\ue0b0",
             "template": "\uf1da"
           }
