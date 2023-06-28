@@ -84,15 +84,6 @@
             "trailing_diamond": "\ue0b0",
             "style": "diamond",
             "type": "git"
-          },
-          {
-            "type": "upgrade",
-            "style": "diamond",
-            "foreground": "#111111",
-            "background": "#FFD664",
-            "leading_diamond": "<transparent,background>\uE0B0</>",
-            "trailing_diamond": "\ue0b0",
-            "template": "\uf1da"
           }
         ],
         "type": "prompt"
@@ -100,6 +91,13 @@
       {
         "alignment": "right",
         "segments": [
+          {
+            "type": "upgrade",
+            "style": "diamond",
+            "foreground": "#606060",
+            "trailing_diamond": "<#8b8b8b>\ue621</>",
+            "template": "OMP UPDATE \uf102 "
+          },          
           {
             "type": "battery",
             "style": "diamond",
@@ -111,22 +109,13 @@
               "charging_icon": "\uE234 ",
               "charged_icon": "\uE22F "
             }
-          },  
-          // {
-          //   "type": "text",
-          //   "style": "diamond",
-          //   "foreground": "#606060",
-          //   "trailing_diamond": "<#8b8b8b>\ue621</>",
-          //   "template": "\uf242\u2800 65% \uf588 "
-          //   // f589 f0e7
-          // },
+          },
           {
             "foreground": "#606060",
             "properties": {
                 "time_format": "15:04:05"
             },
             "style": "plain",
-            // "template": "\uf43a [{{ .CurrentDate | date .Format }}]",
             "template": " {{ .CurrentDate | date .Format }}",
             "type": "time"
           }          
