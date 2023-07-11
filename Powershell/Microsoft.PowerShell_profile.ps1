@@ -115,6 +115,10 @@ function getPublicIp {
 }
 Set-Alias -Name publicip -Value getPublicIp
 
+function Update-OhMyPosh {
+    Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+}
+
 # oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/amro.omp.json" | Invoke-Expression
 oh-my-posh init pwsh --config "C:\Users\Viper\Documents\PowerShell\viper_custom_shell.omp.json" | Invoke-Expression
 
